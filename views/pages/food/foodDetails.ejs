@@ -1,0 +1,80 @@
+<%- include('../templates/header.ejs') %>
+
+
+    <main>
+        <h2>Informacje o pokarmie [ID = <%= food.id_food %>] - <%= food.name %>
+        </h2>
+
+        <div class="tarantula-profile-wrapper">
+
+            <div class="tarantula-details-box">
+                <p class="tarantula-profile-label"> Nazwa: </p>
+                <p class="tarantula-profile-label"> Rozamiar: </p>
+                <p class="tarantula-profile-label"> Zawartość Węglowodanów </p>
+                <p class="tarantula-profile-label"> Zawartość Białka: </p>
+                <p class="tarantula-profile-label"> Zawartość Tłuszczy: </p>
+                <br />
+                <!--
+                <div class="form-buttons" type="hidden">
+                    <a type="hidden" href="/feeding/addFeeding" class="form-button-add"> Nakarm tym ptasznika </a>
+                </div>-->
+            </div>
+
+            <div class="tarantula-actions-box">
+                <p class="tarantula-profile-value">
+                    <%= food.name %>
+                </p>
+                <p class="tarantula-profile-value">
+                    <%= food.size %>
+                </p>
+                <p class="tarantula-profile-value">
+                    <%= food.carbs_content %>%
+                </p>
+                <p class="tarantula-profile-value">
+                    <%= food.protein_content %>%
+                </p>
+                <p class="tarantula-profile-value">
+                    <%= food.fat_content %>%
+                </p>
+                <br />
+                <div class="form-buttons">
+                    <a href="/food/delete/<%= food.id_food %>" class="form-button-cancel"> Usuń Pokarm </a>
+                    <a href="/food/editFood/<%= food.id_food %>" class="form-button-submit"> Edytuj Pokarm</a> <br />
+                </div>
+            </div>
+
+        </div>
+        <h2>Karmienia z udziałem tego pokarmu</h2>
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>Nazwa Ptasznika</th>
+                    <th>Sztuk</th>
+                    <th>Data</th>
+                    <th>Czy zjadł?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let feeding of food.feedings) {%>
+                    <tr>
+                        <td>
+                            <%= feeding.tarantula.species_name %>
+                        </td>
+                        <td>
+                            <%= feeding.eaten_food %>
+                        </td>
+                        <td>
+                            <%= feeding.date.toISOString().split('T')[0] %>
+                        </td>
+                        <td>
+                            <%=(feeding.didEat==1) ? 'Tak' : 'Nie' %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <hr />
+    </main>
+
+
+    <%- include('../templates/footer.ejs') %>

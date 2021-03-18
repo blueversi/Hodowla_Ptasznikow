@@ -1,0 +1,125 @@
+<%- include('../templates/header.ejs') %>
+
+
+    <main>
+        <h2>
+            <%= pageTitle %>
+        </h2>
+        <form class="form" method="post" action="<%=formAction%>" novalidate
+            onsubmit="return validateAddFeedingForm();">
+            <input type="hidden" name="id"
+                value="<%=feeding.id_feeding%><%=(formMode=='edit' && validation=='on') ? feeding.id : ''%>">
+            <div class="form-group">
+                <label for="id_tarantula">
+                    <span>Ptasznik: </span>
+                    <select name="id_tarantula" id="id_tarantula"
+                        class="<%= validationErrors.find(e => e.path.includes('id_tarantula')) ? 'error-input' : '' %>">
+                        <option value="" disabled <%=(formMode=='edit' ) ? '' : 'selected' %> hidden>Wybierz Ptasznika
+                        </option>
+                        <% for(let i=0; i<allTarnatulas.length; i++){ %>
+                            <option value="<%=allTarnatulas[i].id_tarantula %>" <% if(formMode=='edit' &&
+                                validation=='off' ) { %>
+                                <%=(allTarnatulas[i].id_tarantula==feeding.tarantula.id_tarantula) ? 'selected' : '' %>
+                                    <% } %>
+                                        <% if(formMode=='createNew' || validation=='on' ) { %>
+                                            <%=(allTarnatulas[i].id_tarantula==feeding.id_tarantula) ? 'selected' : ''
+                                                %>
+                                                <% } %> >
+                                                    [
+                                                    <%=allTarnatulas[i].id_tarantula %>] -
+                                                        <%=allTarnatulas[i].species_name %> - L
+                                                            <%=allTarnatulas[i].stadium %>
+                            </option>
+                            <% } %>
+                    </select>
+                    <span id="errorTarantula" class="errors-text">
+                        <% if (validationErrors.find(e=> e.path.includes('id_tarantula'))) { %>
+                            <%= validationErrors.find(e=> e.path.includes('id_tarantula')).message %>
+                                <% } %>
+                    </span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="id_food">
+                    <span>Pokarm: </span>
+                    <select name="id_food" id="id_food"
+                        class="<%= validationErrors.find(e => e.path.includes('id_food')) ? 'error-input' : '' %>">
+                        <option value="" disabled <%=(formMode=='edit' ) ? '' : 'selected' %> hidden>Wybierz pokarm
+                        </option>
+                        <% for(let i=0; i<allFoods.length; i++){ %>
+
+                            <option value="<%=allFoods[i].id_food %>" <% if(formMode=='edit' && validation=='off' ) { %>
+                                <%=(allFoods[i].id_food==feeding.food.id_food) ? 'selected' : '' %>
+                                    <% } %>
+                                        <% if(formMode=='createNew' || validation=='on' ) { %>
+                                            <%=(allFoods[i].id_food==feeding.id_food) ? ' selected' : '' %>
+                                                <% } %> >
+                                                    <%=allFoods[i].name %> - <%=allFoods[i].size %>
+                            </option>
+
+                            <% } %>
+                    </select>
+                    <span id="errorFood" class="errors-text">
+                        <% if (validationErrors.find(e=> e.path.includes('id_food'))) { %>
+                            <%= validationErrors.find(e=> e.path.includes('id_food')).message %>
+                                <% } %>
+                    </span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="eaten_food">
+                    <span>Zjedzonych Sztuk: <sup>*</sup></span>
+                    <input type="number" name="eaten_food" id="eaten_food" min="1" placeholder="Zjedzonych sztuk"
+                        value="<%= feeding.eaten_food %>"
+                        class="<%= validationErrors.find(e => e.path.includes('eaten_food')) ? 'error-input' : '' %>" />
+                    <span id="errorEatenNumber" class="errors-text">
+                        <% if (validationErrors.find(e=> e.path.includes('eaten_food'))) { %>
+                            <%= validationErrors.find(e=> e.path.includes('eaten_food')).message %>
+                                <% } %>
+                    </span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="date">
+                    <span>Data karmienia: <sup>*</sup></span>
+                    <input type="date" name="date" id="date" value="<%=(validation=='on') ? feeding.date : ''%><%= (formMode == 'edit' && validation == 'off')
+                    ? feeding.date.toLocaleString( 'sv', { timeZoneName: 'short' } ).split(' ')[0]: '' %>"
+                        class="<%= validationErrors.find(e=> e.path.includes('date')) ? 'error-input' : '' %>" />
+                    <span id="errorFeedingDate" class="errors-text">
+                        <% if (validationErrors.find(e=> e.path.includes('date'))) { %>
+                            <%= validationErrors.find(e=> e.path.includes('date')).message %>
+                                <% } %>
+                    </span>
+                </label>
+            </div>
+            <div class="form-group">
+                <div>
+                    <span> Czy zjadł?</span>
+                    <span id="errorIsEaten" class="errors-text">
+                        <% if (validationErrors.find(e=> e.path.includes('didEat'))) { %>
+                            <%= validationErrors.find(e=> e.path.includes('didEat')).message %>
+                                <% } %>
+                    </span>
+                    <label for="didEat">
+                        <span>TAK </span>
+                        <input type="radio" id="eaten" name="didEat" value="1" <%=(feeding.didEat==1) ? 'checked' : ''
+                            %> >
+                    </label>
+                    <label for="didEat">
+                        <span>NIE </span>
+                        <input type="radio" id="notEaten" name="didEat" value="0" <%=(feeding.didEat==0) ? 'checked'
+                            : '' %> >
+                    </label>
+                </div>
+                <div class="form-buttons">
+                    <a href="" class="form-button-cancel"> Anuluj </a>
+                    <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                    <p id="errorsSummary" class="errors-text"></p>
+                </div>
+            </div>
+        </form>
+        <hr />
+    </main>
+
+
+    <%- include('../templates/footer.ejs') %>

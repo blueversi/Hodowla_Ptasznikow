@@ -1,0 +1,65 @@
+<%- include('../templates/header.ejs') %>
+
+
+    <main>
+        <h2>Lista Ptaszników</h2>
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nazwa Gatunkowa</th>
+                    <th>Płeć</th>
+                    <th width="100px">Data Urodzenia</th>
+                    <th>Stadium</th>
+                    <th>Cites</th>
+                    <th width="120px">Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let tarantula of tarantulas) { %>
+                    <tr>
+                        <td>
+                            <%= tarantula.id_tarantula %>
+                        </td>
+                        <td>
+                            <%= tarantula.species_name %>
+                        </td>
+                        <td>
+                            <%= tarantula.gender %>
+                        </td>
+                        <td>
+                            <%= (new Date(tarantula.birthdate )).toLocaleString().split(',')[0] %>
+                        </td>
+                        <td>L<%= tarantula.stadium %>
+                        </td>
+                        <td>
+                            <%= (tarantula.CITES==1) ? "Tak" : "Nie" %>
+                        </td>
+                        <td>
+                            <ul class="list-actions">
+                                <li>
+                                    <a href="/tarantula/tarantulaDetails/<%= tarantula.id_tarantula %>"><img
+                                            src="res/info-icon.png" class="list-actions-info" alt="Szczegóły"></a>
+                                </li>
+                                <li>
+                                    <a href="/tarantula/editTarantula/<%= tarantula.id_tarantula %>"><img
+                                            src="res/edit-icon.png" class="list-actions-edit" alt="Edytuj"></a>
+                                </li>
+                                <li>
+                                    <a href="/tarantula/delete/<%= tarantula.id_tarantula %>" id="confirm"
+                                        onClick="Confirm()"><img src="res/delete-icon.png" class="list-actions-delete"
+                                            alt="Usuń"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <br />
+        <a href="/tarantula/addTarantula" class="button-add"> Dodaj nowego Ptasznika </a>
+
+    </main>
+
+
+    <%- include('../templates/footer.ejs') %>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script type="application/javascript" src="/js/addTarantulaValidateForm.js"></script>
+    <script type="application/javascript" src="/js/addFoodValidateForm.js"></script>
+    <script type="application/javascript" src="/js/addFeedingValidateForm.js"></script>
+    <title>Hodowla Ptaszników - Strona Główna</title>
+</head>
+
+<body>
+    <header>
+        <h1 class="logo">Hodowla Ptaszników</h1>
+        <hr />
+        <nav>
+            <ul>
+                <li><a href="/" class="<%= navLocation == 'main' ? 'active' : ''%>">Strona Główna</a></li>
+                <li><a href="/tarantula" class="<%= navLocation == 'tarantula' ? 'active' : ''%>">Ptaszniki</a></li>
+                <li><a href="/food" class="<%= navLocation == 'food' ? 'active' : ''%>">Pokarm</a></li>
+                <li><a href="/feeding" class="<%= navLocation == 'feeding' ? 'active' : ''%>">Karmienia</a></li>
+            </ul>
+        </nav>
+    </header>

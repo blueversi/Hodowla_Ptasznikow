@@ -1,0 +1,68 @@
+<%- include('../templates/header.ejs') %>
+
+
+    <main>
+        <h2>Informacje o wszystkich karmieniach</h2>
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ptasznik</th>
+                    <th>Pokarmu</th>
+                    <th>Rozamiar Pokarmu</th>
+                    <th>Sztuk</th>
+                    <th width="100px">Data</th>
+                    <th>Czy zjadł?</th>
+                    <th width="120px">Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let feeding of feedings) { %>
+                    <tr>
+                        <td>
+                            <%= feeding.id_feeding %>
+                        </td>
+                        <td>
+                            <%= feeding.tarantula.species_name %>
+                        </td>
+                        <td>
+                            <%= feeding.food.name %>
+                        </td>
+                        <td>
+                            <%= feeding.food.size %>
+                        </td>
+                        <td>
+                            <%= feeding.eaten_food %>
+                        </td>
+                        <td>
+                            <%= (new Date(feeding.date)).toLocaleString().split(',')[0] %>
+                        </td>
+                        <td>
+                            <%= (feeding.didEat==1) ? "Tak" : "Nie" %>
+                        </td>
+                        <td>
+                            <ul class="list-actions">
+                                <li>
+                                    <a href="/feeding/feedingDetails/<%= feeding.id_feeding %>"><img
+                                            src="res/info-icon.png" class="list-actions-info" alt="Szczegóły"></a>
+                                </li>
+                                <li>
+                                    <a href="/feeding/editFeeding/<%= feeding.id_feeding %>"><img
+                                            src="res/edit-icon.png" class="list-actions-edit" alt="Edytuj"></a>
+                                </li>
+                                <li>
+                                    <a href="/feeding/delete/<%= feeding.id_feeding %>"><img src="res/delete-icon.png"
+                                            class="list-actions-delete" alt="Usuń"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <br />
+        <a href="/feeding/addFeeding" class="button-add">Dodaj karmienie</a>
+    </main>
+
+
+    <%- include('../templates/footer.ejs') %>

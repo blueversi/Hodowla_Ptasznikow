@@ -1,0 +1,91 @@
+<%- include('../templates/header.ejs') %>
+
+
+    <main>
+        <h2>
+            <%= pageTitle %>
+        </h2>
+        <form class="form" method="post" action="<%=formAction%>" novalidate onsubmit="return validateAddFoodForm();">
+            <input type="hidden" name="id"
+                value="<%= food.id_food %><%=(formMode=='edit' && validation=='on') ? food.id : ''%>">
+            <div class="form-group">
+                <label for="name">
+                    <span>Nazwa <sup>*</sup></span>
+                    <input type="text" name="name" id="name" placeholder="Nazwa" value="<%= food.name %>"
+                        class="<%= validationErrors.find(e => e.path.includes('name')) ? 'error-input' : '' %>" />
+                    <span id="errorSpeciesName" class="errors-text">
+                        <% if (validationErrors.find(e=> e.path.includes('name'))) { %>
+                            <%= validationErrors.find(e=> e.path.includes('name')).message %>
+                                <% } %>
+                    </span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="size">
+                    <span>Rozmiar: </span>
+                    <select name="size" id="size"
+                        class="<%= validationErrors.find(e => e.path.includes('size')) ? 'error-input' : '' %>">
+                        <option value="" disabled <%=(formMode=='edit' ) ? '' : 'selected' %> hidden>Rozamiar</option>
+
+                        <option value="Wylęg" <%=(food.size=='Wylęg' ) ? 'selected' : '' %> >Wylęg</option>
+                        <option value="Sub-Imago" <%=(food.size=='Sub-Imago' ) ? 'selected' : '' %>>Sub-Imago
+                        </option>
+                        <option value="Imago" <%=(food.size=='Imago' ) ? 'selected' : '' %>>Imago</option>
+                    </select>
+                    <span id="errorSize" class="errors-text">
+                        <% if (validationErrors.find(e=> e.path.includes('size'))) { %>
+                            <%= validationErrors.find(e=> e.path.includes('size')).message %>
+                                <% } %>
+                    </span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="carbs">
+                    <span>Węglowodany: <sup>*</sup></span>
+                    <input type="number" name="carbs_content" id="carbs_content" min="1" placeholder="Węglowodany w %"
+                        value="<%= food.carbs_content %>"
+                        class="<%= validationErrors.find(e => e.path.includes('carbs_content')) ? 'error-input' : '' %>" />
+                    <span id="errorCarbsContent" class="errors-text">
+                        <% if (validationErrors.find(e=> e.path.includes('carbs_content'))) { %>
+                            <%= validationErrors.find(e=> e.path.includes('carbs_content')).message %>
+                                <% } %>
+                    </span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="protein">
+                    <span>Białko: <sup>*</sup></span>
+                    <input type="number" name="protein_content" id="protein_content" min="1" placeholder="Białko w %"
+                        value="<%= food.protein_content %>"
+                        class="<%= validationErrors.find(e => e.path.includes('protein_content')) ? 'error-input' : '' %>" />
+                    <span id="errorProteinContent" class="errors-text">
+                        <% if (validationErrors.find(e=> e.path.includes('protein_content'))) { %>
+                            <%= validationErrors.find(e=> e.path.includes('protein_content')).message %>
+                                <% } %>
+                    </span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="fat">
+                    <span>Tłuszczy: <sup>*</sup></span>
+                    <input type="number" name="fat_content" id="fat_content" min="1" placeholder="Tłuszczy w %"
+                        value="<%= food.fat_content %>"
+                        class="<%= validationErrors.find(e => e.path.includes('fat_content')) ? 'error-input' : '' %>" />
+                    <span id="errorFatContent" class="errors-text">
+                        <% if (validationErrors.find(e=> e.path.includes('fat_content'))) { %>
+                            <%= validationErrors.find(e=> e.path.includes('fat_content')).message %>
+                                <% } %>
+                    </span>
+                </label>
+            </div>
+            <div class="form-buttons">
+                <a href="" class="form-button-cancel"> Anuluj </a>
+                <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                <p id="errorsSummary" class="errors-text"></p>
+            </div>
+        </form>
+        <hr />
+    </main>
+
+
+    <%- include('../templates/footer.ejs') %>

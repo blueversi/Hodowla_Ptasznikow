@@ -1,0 +1,105 @@
+<%- include('../templates/header.ejs') %>
+
+
+    <main>
+        <h2>
+            <%= pageTitle %>
+        </h2>
+        <form class="form" method="post" action="<%=formAction%>" novalidate
+            onsubmit="return validateAddTarantulaForm();">
+            <% if(formMode=='edit' ){ %>
+                <input type="hidden" name="id"
+                    value="<%=tarantula.id_tarantula%><%=(formMode=='edit' && validation=='on') ? tarantula.id : ''%>">
+                <% } %>
+                    <div class="form-group">
+                        <label for="species_name">
+                            <span>Nazwa Gatunkowa: <sup>*</sup></span>
+                            <input type="text" name="species_name" id="species_name"
+                                class="<%= validationErrors.find(e => e.path.includes('species_name')) ? 'error-input' : '' %>"
+                                placeholder="Nazwa Gatunku" value="<%= tarantula.species_name %>" />
+                            <span id="errorSpeciesName" class="errors-text">
+                                <% if (validationErrors.find(e=> e.path.includes('species_name'))) { %>
+                                    <%= validationErrors.find(e=> e.path.includes('species_name')).message %>
+                                        <% } %>
+
+                            </span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">
+                            <span>Płeć: </span>
+                            <select name="gender" id="gender"
+                                class="<%= validationErrors.find(e => e.path.includes('gender')) ? 'error-input' : '' %>">
+                                <option value="" disabled <%=(formMode=='edit' ) ? '' : 'selected' %> hidden>Płeć
+                                </option>
+                                <option value="N/S" <%=(tarantula.gender=='N/S' ) ? 'selected' : '' %>>N/S</option>
+                                <option value="Female" <%=(tarantula.gender=='Female' ) ? 'selected' : '' %>>Samica
+                                </option>
+                                <option value="Male" <%=(tarantula.gender=='Male' ) ? 'selected' : '' %>>Samiec</option>
+                            </select>
+                            <span id="errorGender" class="errors-text">
+                                <% if (validationErrors.find(e=> e.path.includes('gender'))) { %>
+                                    <%= validationErrors.find(e=> e.path.includes('gender')).message %>
+                                        <% } %>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthDate">
+                            <span>Data Urodzenia: <sup>*</sup></span>
+                            <input type="date"
+                                class="<%=(validation=='on') ? tarantula.birthDate : ''%><%=(formMode=='edit' && validation=='off') ? tarantula.birthdate.toLocaleString( 'sv', { timeZoneName: 'short' } ).split(' ')[0] : ''%>"
+                                name="birthDate" id="birthDate"
+                                value="<%=(validation=='on') ? tarantula.birthDate : ''%><%=(formMode=='edit' && validation=='off') ? tarantula.birthdate.toLocaleString( 'sv', { timeZoneName: 'short' } ).split(' ')[0] : ''%>"
+                                class="<%= validationErrors.find(e => e.path.includes('birthDate')) ? 'error-input' : '' %>" />
+                            <span id="errorBirthDate" class="errors-text">
+                                <% if (validationErrors.find(e=> e.path.includes('birthDate'))) { %>
+                                    <%= validationErrors.find(e=> e.path.includes('birthDate')).message %>
+                                        <% } %>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="stadium">
+                            <span>Stadium: <sup>*</sup></span>
+                            <input type="number" name="stadium" id="stadium" min="1" placeholder="Stadium (nr wylinki)"
+                                value="<%= tarantula.stadium %>"
+                                class="<%= validationErrors.find(e => e.path.includes('stadium')) ? 'error-input' : '' %>" />
+                            <span id="errorStadium" class="errors-text">
+                                <% if (validationErrors.find(e=> e.path.includes('stadium'))) { %>
+                                    <%= validationErrors.find(e=> e.path.includes('stadium')).message %>
+                                        <% } %>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <span> Czy wymagany jest CITES?</span>
+                            <span id="errorCITES" class="errors-text">
+                                <% if (validationErrors.find(e=> e.path.includes('CITES'))) { %>
+                                    <%= validationErrors.find(e=> e.path.includes('CITES')).message %>
+                                        <% } %>
+                            </span>
+                            <label for="CITES">
+                                <span>TAK </span>
+                                <input type="radio" id="CITESYes" name="CITES" value="1" <%=(tarantula.CITES==1)
+                                    ? 'checked' : '' %> />
+                            </label>
+                            <label for="CITES">
+                                <span>NIE </span>
+                                <input type="radio" id="CITESNo" name="CITES" value="0" <%=(tarantula.CITES==0)
+                                    ? 'checked' : '' %> />
+                            </label>
+                        </div>
+                        <div class="form-buttons">
+                            <a href="" class="form-button-cancel"> Anuluj </a>
+                            <input class="form-button-submit" type="submit" value="<%=btnLabel%>" />
+                            <p id="errorsSummary" class="errors-text"></p>
+                        </div>
+                    </div>
+        </form>
+        <hr />
+    </main>
+
+
+    <%- include('../templates/footer.ejs') %>

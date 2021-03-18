@@ -1,0 +1,53 @@
+<%- include('../templates/header.ejs') %>
+
+
+    <main>
+        <h2>Informacje o karmieniu [ID = <%= feeding.id_feeding %>] </h2>
+
+        <div class="feeding-profile-wrapper">
+
+            <div class="feeding-details-box">
+                <p class="tarantula-profile-label"> Nazwa Ptasznika: </p>
+                <p class="tarantula-profile-label"> Nazwa Pokarmu: </p>
+                <p class="tarantula-profile-label"> Nazwa Rozmiar Pokarmu: </p>
+                <p class="tarantula-profile-label"> Sztuk: </p>
+                <p class="tarantula-profile-label"> Data karmienia: </p>
+                <p class="tarantula-profile-label"> Czy Zjadł: </p>
+            </div>
+
+            <div class="feeding-actions-box">
+                <p class="tarantula-profile-value">
+                    <%= feeding.tarantula.species_name %>
+                </p>
+                <p class="tarantula-profile-value">
+                    <%= feeding.food.name %>
+                </p>
+                <p class="tarantula-profile-value">
+                    <%= feeding.food.size %>
+                </p>
+                <p class="tarantula-profile-value">
+                    <%= feeding.eaten_food %>
+                </p>
+                <p class="tarantula-profile-value">
+                    <%= (new Date(feeding.date)).toLocaleString().split(',')[0] %>
+                </p>
+                <p class="tarantula-profile-value">
+                    <%= (feeding.didEat==1) ? 'Tak' : 'Nie' %>
+                </p>
+                <br />
+                <div class="form-buttons">
+                    <a href="/feeding/delete/<%= feeding.id_feeding %>"" class=" form-button-cancel"> Usuń Karmienie
+                    </a>
+                    <a href="/feeding/editFeeding/<%= feeding.id_feeding %>" class="form-button-submit"> Edytuj
+                        Karmienie</a> <br />
+                </div>
+            </div>
+
+        </div>
+        <br />
+        <br />
+        <hr />
+    </main>
+
+
+    <%- include('../templates/footer.ejs') %>

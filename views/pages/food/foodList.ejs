@@ -1,0 +1,64 @@
+<%- include('../templates/header.ejs') %>
+
+
+    <main>
+        <h2>Lista Pokarmu</h2>
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nazwa</th>
+                    <th>Rozmiar</th>
+                    <th>Węglowodanów</th>
+                    <th>Białka</th>
+                    <th>Tłuszczy</th>
+                    <th>Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let food of foods) { %>
+                    <tr>
+                        <td>
+                            <%= food.id_food %>
+                        </td>
+                        <td>
+                            <%= food.name %>
+                        </td>
+                        <td>
+                            <%= food.size %>
+                        </td>
+                        <td>
+                            <%= food.carbs_content %>
+                        </td>
+                        <td>
+                            <%= food.protein_content %>
+                        </td>
+                        <td>
+                            <%= food.fat_content %>
+                        </td>
+                        <td>
+                            <ul class="list-actions">
+                                <li>
+                                    <a href="/food/foodDetails/<%= food.id_food %>"><img src="res/info-icon.png"
+                                            class="list-actions-info" alt="Szczegóły"></a>
+                                </li>
+                                <li>
+                                    <a href="/food/editFood/<%= food.id_food %>"><img src="res/edit-icon.png"
+                                            class="list-actions-edit" alt="Edytuj"></a>
+                                </li>
+                                <li>
+                                    <a href="/food/delete/<%= food.id_food %>"><img src="res/delete-icon.png"
+                                            class="list-actions-delete" alt="Usuń"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <br />
+        <a href="/food/addFood" class="button-add">Dodaj nowy pokarm</a>
+    </main>
+
+
+    <%- include('../templates/footer.ejs') %>

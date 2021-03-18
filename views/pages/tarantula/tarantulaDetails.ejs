@@ -1,0 +1,87 @@
+<%- include('../templates/header.ejs') %>
+
+
+    <main>
+        <h2>Informacje o ptaszniku [ID = <%= tarantula.id_tarantula %>] - <%= tarantula.species_name %>
+        </h2>
+
+        <div class="tarantula-profile-wrapper">
+
+            <div class="tarantula-details-box">
+                <p class="tarantula-profile-label"> Nazwa Gatunkowa: </p>
+                <p class="tarantula-profile-label"> Płeć: </p>
+                <p class="tarantula-profile-label"> Data Urodzenia: </p>
+                <p class="tarantula-profile-label"> Stadium: </p>
+                <p class="tarantula-profile-label"> Cites: </p>
+                <br />
+                <!--
+                <div class="form-buttons">
+                    <a href="/feeding/addFeeding" class="form-button-add" type="hidden"> Dodaj Karmienie </a>
+                </div>
+            -->
+            </div>
+
+            <div class="tarantula-actions-box">
+                <p class="tarantula-profile-value">
+                    <%= tarantula.species_name %>
+                </p>
+                <p class="tarantula-profile-value">
+                    <%=(tarantula.gender=='Female') ? 'Samica' : '' %>
+                        <%=(tarantula.gender=='Male') ? 'Samiec' : '' %>
+                            <%=(tarantula.gender== 'N/S' ) ? 'N/S' : '' %>
+                </p>
+                <p class="tarantula-profile-value">
+                    <%= (new Date(tarantula.birthdate )).toLocaleString().split(',')[0] %>
+                        <% console.log((new Date(tarantula.birthdate )).toLocaleString().split(',')[0]) %>
+                </p>
+                <p class="tarantula-profile-value"> L<%= tarantula.stadium %>
+                </p>
+                <p class="tarantula-profile-value"> Nie </p>
+                <br />
+                <div class="form-buttons">
+                    <a href="/tarantula/delete/<%= tarantula.id_tarantula %>" class="form-button-cancel"> Usuń Ptasznika
+                    </a>
+                    <a href="/tarantula/editTarantula/<%= tarantula.id_tarantula %>" class="form-button-submit"> Edytuj
+                        Ptasznika</a> <br />
+                </div>
+            </div>
+
+        </div>
+        <h2>Informacje o karmieniu ptasznika</h2>
+        <table class="table-list">
+            <thead>
+                <tr>
+                    <th>Nazwa Pokarmu</th>
+                    <th>Rozamiar</th>
+                    <th>Sztuk</th>
+                    <th>Data</th>
+                    <th>Czy zjadł?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let f of tarantula.feedings) { %>
+                    <tr>
+                        <td>
+                            <%=f.food.name%>
+                        </td>
+                        <td>
+                            <%=f.food.size%>
+                        </td>
+                        <td>
+                            <%=f.eaten_food%>
+                        </td>
+                        <td>
+                            <%=f.date.toISOString().split('T')[0]%>
+                        </td>
+                        <td>
+                            <%=(f.didEat==1) ? 'Tak' : 'Nie' %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <hr />
+    </main>
+
+
+    <%- include('../templates/footer.ejs') %>
