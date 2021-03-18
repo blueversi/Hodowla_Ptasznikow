@@ -3,9 +3,9 @@ Aplikacja ułatwiająca zarządzanie hodowlą ptaszników || Projekt zaliczeniow
 
 Spis
 1.Instrukcja instalacji i konfiguracji bazy danych
-2.Instrukcja uruchomienia projektu
-3.Lista wykorzystanych technologii
-4.Aktualny diagram schematu bazy danych
+2.2.Instrukcja uruchomienia projektu
+3.3.Lista wykorzystanych technologii
+4.4.Aktualny diagram schematu bazy danych
 
 1.Instrukcja instalacji i konfiguracji bazy danych
 
