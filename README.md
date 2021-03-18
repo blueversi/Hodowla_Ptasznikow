@@ -1,7 +1,7 @@
 # Hodowla_Ptasznikow
 Aplikacja ułatwiająca zarządzanie hodowlą ptaszników || Projekt zaliczeniowy na studia
 
-Spis
+Spis<br>
 1.Instrukcja instalacji i konfiguracji bazy danych <br>
 2.Instrukcja uruchomienia projektu<br>
 3.Lista wykorzystanych technologii<br>
